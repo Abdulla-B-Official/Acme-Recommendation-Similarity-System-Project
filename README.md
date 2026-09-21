@@ -7,7 +7,7 @@
 ![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)
 
 <p align="center">
-  <b>A production-grade, full-stack Natural Language Processing (NLP) product recommendation engine designed to search, retrieve, and match similar items from a 70,000-product e-commerce catalog using a Python Flask backend and an interactive glassmorphic web UI.</b>
+  <b>A full-stack Natural Language Processing (NLP) product recommendation engine designed to search, retrieve, and match similar items across a 70,000-product catalog using a Python Flask backend, FAISS vector search, and a glassmorphic web UI.</b>
 </p>
 
 ---
@@ -16,21 +16,23 @@
   <img src="https://img.shields.io/badge/Algorithm-FAISS_Vector_Search-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Model-SentenceTransformers_all--MiniLM--L6--v2-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Metrics-Precision%405_95.10%25-orange?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/MRR%405-0.9679-red?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Metrics-MRR%405_0.9679-red?style=for-the-badge" />
 </p>
 
 ---
 
 ## Overview
 
-**Acme Product Recommendation Similarity System** is an end-to-end NLP semantic retrieval and personalization system built to scale across extensive retail catalogs. By mapping product metadata—including title, main category, and subcategory—into dense multi-dimensional vector spaces, the system processes natural language queries or product descriptions to instantly deliver top-$N$ relevant recommendations.
+**Acme Product Recommendation Similarity System** is an end-to-end NLP semantic retrieval and personalization pipeline built to process large-scale e-commerce product catalogs, automatically matching natural language queries or item descriptions to similar products based on contextual intent.
 
-The architecture combines deep transformer-based semantic embeddings with optimized vector search indices, surfaced through a modern web UI:
+The system leverages a modular Python backend for high-performance dense vector embedding and sub-millisecond retrieval, paired with an interactive HTML/CSS/JS frontend for seamless user interaction:
 
-* **Text Preprocessing & Metadata Fusion:** Concatenation and normalization of multi-field metadata (`name`, `main_category`, `sub_category`) into a unified `combined_features` text field.
-* **Dense Embedding Extraction:** Leveraging `Sentence-Transformers` (`all-MiniLM-L6-v2`) to capture context, intent, and subtle product characteristics far beyond traditional keyword search.
-* **Sub-Millisecond Retrieval:** Utilizing Facebook AI Similarity Search (`FAISS` `IndexFlatIP` / `IndexIVFFlat`) for ultra-low latency cosine similarity queries across 70,000+ vector spaces.
-* **Glassmorphic Web Interface:** A responsive Flask-driven web app featuring dynamic top-$N$ selection, percentage match badges, and real-time backend API consumption.
+* **Text Preprocessing & Feature Fusion:** Normalization and concatenation of product metadata (`name`, `main_category`, and `sub_category`) into unified feature strings.
+* **Dense Embedding Generation:** Transforming textual product features into dense vector representations using `all-MiniLM-L6-v2` to capture contextual semantics rather than relying on exact keyword overlaps.
+* **Sub-Millisecond Vector Search:** Utilizing Facebook AI Similarity Search (`FAISS` `IndexFlatIP` / `IndexIVFFlat`) to perform efficient similarity queries across 70,000+ vector spaces.
+* **Interactive User Interface:** A dynamic dark-mode web application allowing users to input search queries, select top-$N$ recommendation bounds, and view percentage-based similarity match scores in real time.
+
+The system transforms raw unstructured product metadata into high-dimensional vector spaces, bridging the gap between customer search intent and relevant product discovery.
 
 ---
 
@@ -38,54 +40,56 @@ The architecture combines deep transformer-based semantic embeddings with optimi
 
 | Language | Percentage | Primary Usage |
 | :--- | :--- | :--- |
-| **Python** | **45.7%** | Core NLP pipeline, FAISS vector indexing, Sentence-Transformers embeddings, and Flask RESTful API |
-| **JavaScript** | **23.6%** | Asynchronous Fetch API requests, dynamic DOM rendering, score formatting, and status handling |
-| **CSS** | **16.9%** | Glassmorphism dashboard styling, ambient lighting backgrounds, flex/grid layouts, and responsive design |
-| **HTML** | **13.8%** | Structured Web UI layouts, accessible input forms, top-$N$ selector controls, and card grids |
+| **Python** | **45.7%** | Core NLP pipeline, Sentence-Transformers embedding, FAISS indexing, and Flask RESTful API routing |
+| **JavaScript** | **23.6%** | Asynchronous Fetch API requests, dynamic DOM rendering, match score calculations, and status updates |
+| **CSS** | **16.9%** | Glassmorphism dashboard styling, ambient lighting effects, responsive grid layouts, and typography |
+| **HTML** | **13.8%** | Structural layout for search forms, top-$N$ recommendation controls, and product card result containers |
 
 ---
 
 ### Application Features
 
-* **Full-Stack Architecture:** Clean modular design separating the NLP vector retrieval pipeline (`src/`) from the client interface (`templates/` and `static/`).
-* **True Semantic Understanding:** Matches search queries based on conceptual intent rather than exact word overlaps (e.g., matching *"noise cancelling earplugs"* with *"wireless bluetooth headphones"*).
-* **Sub-Millisecond Vector Search:** Powered by FAISS index structures, capable of searching tens of thousands of catalog items instantly.
-* **Production Evaluation Metrics:** Validated quantitatively on historical data, achieving a **Precision@5 of 95.10%** and an **MRR@5 of 0.9679**.
-* **Cloud-Ready Deployment:** Engineered with `.gitignore` rules for weight isolation, HuggingFace auto-caching, Gunicorn server setup, and Render cloud compatibility.
+* **Full-Stack Architecture:** Modular separation between the vector retrieval backend (`src/`) and the client-facing web application (`templates/` and `static/`).
+* **Semantic Search Engine:** Understands underlying query intent to retrieve relevant alternatives (e.g., matching *"noise cancellation earplugs"* with *"wireless bluetooth headphones"*).
+* **Sub-Millisecond Retrieval:** Powered by FAISS vector indexing, returning ranked recommendations across tens of thousands of catalog items instantly.
+* **Quantitative Evaluation Metrics:** Rigorously benchmarked on catalog test sets, achieving a **Precision@5 of 95.10%** and an **MRR@5 of 0.9679**.
+* **Cloud-Ready Deployment:** Configured with dynamic weight loading, `.gitignore` isolation rules for large binaries, Gunicorn server setup, and Render deployment compatibility.
 
 ---
 
 ## Project Objective
 
-The primary objective is to build a high-performance, real-time product discovery engine for Acme Retail that can:
+The primary objective is to build a scalable, production-grade product recommendation system that can:
 
-* Structure and vectorize multi-category product catalog metadata containing over 70,000 entries.
-* Eliminate search bounce rates caused by rigid `CTRL+F` or exact SQL string matches.
-* Compute vector cosine similarity in sub-millisecond windows to recommend highly relevant alternative items.
-* Provide non-technical retail users and e-commerce shoppers with an intuitive web UI.
-* Deploy cleanly to cloud infrastructure using automated build processes.
+* Clean, normalize, and combine multi-field product metadata across 70,000+ catalog items.
+* Eliminate search friction caused by traditional exact keyword match constraints.
+* Generate dense text embeddings to capture subtle semantic relationships between catalog SKUs.
+* Deliver sub-millisecond vector retrieval for real-time e-commerce user queries.
+* Provide an intuitive web interface for non-technical users to query the catalog and visualize top match confidence scores.
+* Maintain a clean repository structure adhering to modern software development standards.
 
 ---
 
 ## Problem Statement
 
-Traditional keyword search engines rely on exact token matching. When e-commerce customers query a retail catalog using synonyms, broad features, or colloquial phrases, standard keyword systems fail to return relevant results—leading to dead ends and dropped conversions.
+Navigating vast e-commerce product catalogs using traditional keyword searches frequently fails when customers use synonyms, descriptive features, or phrasing that differs from seller product titles.
 
 Standard baseline solutions frequently suffer from:
-* **Synonym Blindness:** Inability to recognize that words like *"beverage container"* and *"water bottle"* share the same semantic intent.
-* **Latency Bottlenecks:** Naive pairwise cosine similarity calculations scale poorly ($O(N)$) as product catalogs grow to tens or hundreds of thousands of SKUs.
-* **Lack of Visual Tooling:** Technical backend vector models that remain inaccessible to business managers or shoppers due to the absence of a modern frontend interface.
+
+* An inability to recognize semantic equivalency between different vocabularies describing identical product capabilities.
+* Latency bottlenecks ($O(N)$ pairwise comparisons) when calculating cosine similarity across large catalog sizes.
+* A lack of user-friendly front-end tools, making backend machine learning models inaccessible to shoppers or business operations.
 
 ### Proposed Solution
 
-This project implements an end-to-end semantic vector pipeline executing:
+This project introduces a robust full-stack NLP retrieval pipeline executing:
 
-$$\text{User Search Query} \longrightarrow \text{Text Normalization} \longrightarrow \text{Transformer Embedding} \longrightarrow \text{FAISS Vector Retrieval} \longrightarrow \text{Ranked Products \& Match Scores}$$
+$$\text{Product Query} \longrightarrow \text{Text Normalization} \longrightarrow \text{Transformer Embedding} \longrightarrow \text{FAISS Vector Retrieval} \longrightarrow \text{Ranked Products \& Scores}$$
 
-For every query processed through the web application, the system delivers:
+For every query processed through the web application, the system produces:
 
 ```text
-Normalized Query Embedding
+Normalized Query Vector
 Ranked List of Top-N Matched Products
 Percentage-Based Similarity Match Badges
 Interactive Dark-Mode Visual Dashboard Output
