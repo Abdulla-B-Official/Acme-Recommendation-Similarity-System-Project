@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acme Retail | Product Recommendation System</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Background Decorative Glows -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+
+    <div class="app-container">
+
+        <!-- Header Section -->
+        <header class="header">
+            <div class="brand-badge"><i class="fa-solid fa-sparkles"></i> Acme Retail Personalization Engine</div>
+            <h1>Semantic Search & Recommendations</h1>
+            <p class="subtitle">
+                Powered by Sentence Transformers & FAISS Vector Search Index
+            </p>
+        </header>
+
+        <!-- Search Input Card -->
+        <div class="search-card">
+            
+            <div class="form-group">
+                <label for="query">
+                    <i class="fa-solid fa-magnifying-glass"></i> Product Query or Catalogue ID
+                </label>
+                <div class="textarea-wrapper">
+                    <textarea
+                        id="query"
+                        placeholder="Type a product description (e.g. 'wireless bluetooth headphones with noise cancellation') or Catalogue ID..."
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group flex-1">
+                    <label for="topN">
+                        <i class="fa-solid fa-list-ol"></i> Top-N Recommendations
+                    </label>
+
+                    <div class="select-wrapper">
+                        <select id="topN">
+                            <option value="5" selected>Top 5 Recommendations</option>
+                            <option value="10">Top 10 Recommendations</option>
+                            <option value="15">Top 15 Recommendations</option>
+                            <option value="20">Top 20 Recommendations</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-icon"></i>
+                    </div>
+                </div>
+
+                <button class="btn-search" onclick="getRecommendations()">
+                    <span>Find Similar Products</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Status Message Bar -->
+            <div id="status" class="status-bar"></div>
+
+        </div>
+
+        <!-- Results Display Grid -->
+        <div class="results-header" id="resultsHeader" style="display: none;">
+            <h2><i class="fa-solid fa-layer-group"></i> Recommended Products</h2>
+            <span class="results-count" id="resultsCount">0 Results</span>
+        </div>
+
+        <div id="results" class="results-grid"></div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

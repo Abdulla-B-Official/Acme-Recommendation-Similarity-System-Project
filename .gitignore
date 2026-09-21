@@ -1,0 +1,16 @@
+# Virtual Environment
+venv/
+.venv/
+ENV/
+
+# Exclude Heavy Binary Artifacts (>100MB)
+model_artifacts/faiss_index.bin
+model_artifacts/embedding_model/
+*.safetensors
+*.bin
+
+# Python Cache & Configs
+__pycache__/
+*.pyc
+.vscode/
+.DS_Store
